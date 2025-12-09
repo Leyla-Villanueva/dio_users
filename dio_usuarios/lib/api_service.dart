@@ -11,7 +11,7 @@ class ApiService {
 
   Future<List<dynamic>> getPosts() async {
     try {
-      final response = await _dio.get('/post');
+      final response = await _dio.get('/posts');
       return response.data;
     } on DioException catch (e) {
       print('Error: ${e.message}');
