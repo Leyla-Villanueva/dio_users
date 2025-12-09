@@ -10,20 +10,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ApiService _api = ApiService();
-  List<dynamic> posts = [];
+  List<dynamic> users = [];
   bool loading = true;
 
   @override
   void initState() {
     super.initState();
-    //cargar los datos
-    loadingData();
+    cargarUsuarios();
   }
 
-  Future<void> loadingData() async {
-    final result = await _api.getPosts();
+  Future<void> cargarUsuarios() async {
+    final result = await _api.getUsers();
     setState(() {
-      posts = result;
+      users = result;
       loading = false;
     });
   }
@@ -31,16 +30,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Demo con dio- LEYLA")),
+      appBar: AppBar(title: const Text("Usuarios con Dio - Leyla")),
       body: loading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-              itemCount: posts.length,
+              itemCount: users.length,
               itemBuilder: (context, index) {
-                final item = posts[index];
+                final item = users[index];
                 return ListTile(
-                  title: Text(item['title']),
-                  subtitle: Text(item['body']),
+                  leading: CircleAvatar(child: Text(item['name'][0])),
+                  title: Text(item['name']),
+                  subtitle: Text(item['email']),
                 );
               },
             ),

@@ -9,12 +9,13 @@ class ApiService {
     ),
   );
 
-  Future<List<dynamic>> getPosts() async {
+  // ---- NUEVO MÉTODO ----
+  Future<List<dynamic>> getUsers() async {
     try {
-      final response = await _dio.get('/posts');
+      final response = await _dio.get('/users');
       return response.data;
     } on DioException catch (e) {
-      print('Error: ${e.message}');
+      print('Error al obtener usuarios: ${e.message}');
       return [];
     }
   }
